@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  docker-for-wordpress:
+    image: wordpress:4.9.7-php7.0-apache
+    container_name: docker-for-wordpress
+    ports:
+      - 127.0.0.1:8000:80
+    environment:
+      WORDPRESS_DB_HOST: docker-for-wordpress-mysql
+      WORDPRESS_DB_NAME: docker-for-wordpress
+    volumes:
+      - ./wp:/var/www/html
+    depends_on:
+      - docker-for-wordpress-mysql
+
+  docker-for-wordpress-mysql:
+    image: mysql:5.7
+    container_name: docker-for-wordpress-mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin
+    volumes:
+      - .volumes:/var/lib/mysql
+    ports:
+      - 127.0.0.1:3306:3306
+    environment:
+      MYSQL_USER:                 root
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE:             docker-for-wordpress
