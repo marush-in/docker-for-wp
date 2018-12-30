@@ -1,4 +1,4 @@
-# docker-for-wp
+# Docker for WordPress.
 これはDockerを使用したWordPressの環境構築のテストになります。
 
 # 開発環境の構築
